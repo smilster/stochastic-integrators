@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Stochastic Integrators</title>
+  <link rel="stylesheet" href="style.css">
+
+
+
+  <script src="externalJS/plotly-latest.min.js"></script>
+  <script src="externalJS/d3.v7.min.js"></script>
+
+</head>
+
+<body>
+  <div class="grid-container2">
+    <div> <!-- sliders and methods-->
+      <div>
+        <button onclick="clearCacheAndRefresh()" class="mybut"><b>Restart</b></button>
+      </div>
+      <div id="slider-container">
+        <input type="range" id="noise-slider" min="-3" max="0" value="0" step="0.001"> <label
+          for="noise-slider">temperature = </label>
+        <span id="noise-value">1</span>
+      </div>
+
+      <div id="slider-container">
+        <input type="range" id="k-slider" min="0" max="40" value="0" step="0.1">
+        <label for="k-slider">spring constant = </label>
+        <span id="k-value">0</span>
+      </div>
+
+      <div id="slider-container">
+        <input type="range" id="fext-slider" min="-20" max="20" value="0" step="0.1">
+        <label for="fext-slider">bias = </label>
+        <span id="fext-value">0</span>
+      </div>
+
+      <div id="slider-container">
+        <input type="range" id="dt-slider" min="-5" max="-2" value="-3" step="0.01">
+        <label for="dt-slider">timestep = </label>
+        <span id="dt-value">0.001</span>
+      </div>
+
+      <div id="slider-container">
+        <input type="range" id="N-slider" min="0" max="5" value="0" step="0.05">
+        <label for="N-slider"> particles = </label>
+        <span id="N-value">1</span>
+      </div>
+
+      <div id="slider-container">
+        <input type="range" id="iout-slider" min="0" max="3" value="0" step="0.01">
+        <label for="iout-slider">histogram steps = </label>
+        <span id="iout-value">1</span>
+      </div>
+
+      <div>
+        <input type="range" id="ioutTR-slider" min="0" max="3" value="0" step="0.01">
+        <label for="ioutTR-slider">phase space steps = </label>
+        <span id="ioutTR-value">1</span>
+      </div>
+      <div class="hspace"></div>
+      <br>
+
+      <div>
+
+
+        <b>
+          <div class="greenfont">Friction</div>
+        </b>
+        <div id="slider-container">
+          <input class="myradio" type="radio" id="friction1" name="friction" value="1" checked>
+          <label for="friction1">constant</label>
+          <input type="range" id="gamma-slider" min="-4" max="1" value="0" step="0.001">
+          <span id="gamma-value">1</span>
+        </div>
+
+        <input class="myradio" type="radio" id="friction2" name="friction" value="2">
+        <label for="friction1">position-dependent, domains</label>
+        <br>
+
+        <input class="myradio" type="radio" id="friction3" name="friction" value="3">
+        <label for="friction3">position-dependent, ramp</label>
+        <br>
+
+        <input class="myradio" type="radio" id="friction4" name="friction" value="4">
+        <label for="friction4">velocity-dependent, harmonic</label>
+        <br>
+
+        <input class="myradio" type="radio" id="friction5" name="friction" value="5">
+        <label for="friction5">pos.- and vel.-dep., domains + harmonic</label>
+        <br><br>
+
+
+        <b>Method</b><br>
+        <input class="myradio" type="radio" id="method1" name="method" value="1" checked>
+        <label for="method1">Brown, Euler-Maruyama </label>
+        <br>
+
+        <input class="myradio" type="radio" id="method2" name="method" value="2">
+        <label for="method2">Brown, Heun</label>
+        <br>
+
+        <input class="myradio" type="radio" id="method3" name="method" value="3">
+        <label for="method3">Brown, Oettinger</label>
+        <br>
+        <br>
+
+        <input class="myradio" type="radio" id="method4" name="method" value="4">
+        <label for="method4">Langevin, Euler-Maruyama</label>
+        <br>
+
+        <input class="myradio" type="radio" id="method5" name="method" value="5">
+        <label for="method5">Langevin, Heun</label>
+        <br>
+
+        <input class="myradio" type="radio" id="method6" name="method" value="6">
+        <label for="method6">Langevin, Oettinger</label>
+      </div>
+    </div>
+
+    <div class="grid-container">
+      <div><br></div>
+      <div><br></div>
+      <div><br></div>
+      <div><br></div>
+      <div><br></div>
+      <div><br></div>
+      <div class="grid-item" id="xhist"></div>
+      <div class="grid-item"><br><br><br><br><b>theory<br>
+          <div class="redfont">simulation</div>
+          <div class="greenfont">friction profile</div>
+        </b> </div>
+      <div id="scatter" class="border-div"></div>
+      <div class="grid-item" id="vhist"></div>
+    </div>
+  </div>
+
+
+  <script src="paras.js"></script>
+  <script src="knobs.js"></script>
+  <script src="simulation.js"></script>
+  <script src="plotter.js"></script>
+
+
+
+
+  <script>
+
+
+    initializeParticles();
+    requestAnimationFrame(simulate)
+  </script>
+</body>
+
+</html>
