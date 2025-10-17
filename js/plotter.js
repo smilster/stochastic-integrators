@@ -1,5 +1,4 @@
 
-
 function changePositionHistLayout(maxValue) {
   let layoutPositionHist = {
     showlegend: false,

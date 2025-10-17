@@ -1,29 +1,65 @@
 
-function findMax(arr) {
-  if (arr.length === 0) {
-    return undefined; // Handle empty array case
-  }
 
-  let ymax = arr[0];
 
-  for (let i = 1; i < arr.length; i++) {
-    if (arr[i] > ymax) {
-      ymax = arr[i];
+function simulate() {
+
+  setTimeout(() => {
+    if (method == 1) {
+      BrownEuler();
+    };
+
+    if (method == 2) {
+      BrownHeun();
+    };
+
+    if (method == 3) {
+      BrownOettinger();
+    };
+
+    if (method == 4) {
+      LangevinEuler();
+    };
+
+    if (method == 5) {
+      LangevinHeun();
+    };
+
+    if (method == 6) {
+      LangevinOettinger();
+    };
+
+    if (method < 4) { vlab = '<b>not resolved</b>' } else { vlab = ' ' };
+
+
+    v = particles.map(particle => particle.velocity);
+    x = particles.map(particle => particle.position);
+
+
+
+    X = X.concat(x);
+    V = V.concat(v);
+    if (stepCount % ioutTR === 0) {
+      phaseSpace();
+
     }
-  }
 
-  return ymax;
+    if (stepCount % iout === 0) {
+
+      updatePositionHistogram();
+      updateVelocityHistogram();
+
+      X = [];
+      V = [];
+
+    }
+    stepCount++;
+  }, 0);
+
+  requestAnimationFrame(simulate)
+
 }
 
 
-
-
-function generateGaussianRandom() {
-  let u1 = Math.random();
-  let u2 = Math.random();
-  let z0 = Math.sqrt(-2.0 * Math.log(u1)) * Math.cos(2.0 * Math.PI * u2);
-  return z0;
-}
 
 function initializeParticles() {
   X = [];
@@ -285,63 +321,33 @@ function LangevinOettinger() {
 
 
 
+function findMax(arr) {
+  if (arr.length === 0) {
+    return undefined; // Handle empty array case
+  }
 
-function simulate() {
+  let ymax = arr[0];
 
-  setTimeout(() => {
-    if (method == 1) {
-      BrownEuler();
-    };
-
-    if (method == 2) {
-      BrownHeun();
-    };
-
-    if (method == 3) {
-      BrownOettinger();
-    };
-
-    if (method == 4) {
-      LangevinEuler();
-    };
-
-    if (method == 5) {
-      LangevinHeun();
-    };
-
-    if (method == 6) {
-      LangevinOettinger();
-    };
-
-    if (method < 4) { vlab = '<b>not resolved</b>' } else { vlab = ' ' };
-
-
-    v = particles.map(particle => particle.velocity);
-    x = particles.map(particle => particle.position);
-
-
-
-    X = X.concat(x);
-    V = V.concat(v);
-    if (stepCount % ioutTR === 0) {
-      phaseSpace();
-
+  for (let i = 1; i < arr.length; i++) {
+    if (arr[i] > ymax) {
+      ymax = arr[i];
     }
+  }
 
-    if (stepCount % iout === 0) {
-
-      updatePositionHistogram();
-      updateVelocityHistogram();
-
-      X = [];
-      V = [];
-
-    }
-    stepCount++;
-  }, 0);
-
-  requestAnimationFrame(simulate)
-
+  return ymax;
 }
+
+
+
+
+function generateGaussianRandom() {
+  let u1 = Math.random();
+  let u2 = Math.random();
+  let z0 = Math.sqrt(-2.0 * Math.log(u1)) * Math.cos(2.0 * Math.PI * u2);
+  return z0;
+}
+
+
+
 
 
