@@ -88,14 +88,14 @@ function updatePositionHistogram() {
 
   // initialize Histogram
 
-  const positionBins = d3.histogram()
+  let positionBins = d3.histogram()
     .domain([0, L])
     .thresholds(binNumber)
     (X);
   X = [];
 
 
-  const positionHistogram = positionBins.map(bin => ({
+  let positionHistogram = positionBins.map(bin => ({
     x0: bin.x0,
     x1: bin.x1,
     histValue: bin.length,
@@ -111,7 +111,7 @@ function updatePositionHistogram() {
 
 
 
-  const histNorm = histValues.reduce((accumulator, currentValue) => accumulator + currentValue, 0) * binWidth;
+  let histNorm = histValues.reduce((accumulator, currentValue) => accumulator + currentValue, 0) * binWidth;
 
   for (let j = 0; j < binNumber; j++) {
     histValues[j] = histValues[j] / histNorm;
@@ -122,7 +122,7 @@ function updatePositionHistogram() {
 
 
   let probabilityValues = positionHistogram.map(bin => bin.probability)
-  const probabilityNorm = probabilityValues.reduce((accumulator, currentValue) => accumulator + currentValue, 0) * binWidth;
+  let probabilityNorm = probabilityValues.reduce((accumulator, currentValue) => accumulator + currentValue, 0) * binWidth;
 
   for (let j = 0; j < binNumber; j++) {
     probabilityValues[j] = probabilityValues[j] / probabilityNorm;
@@ -141,7 +141,7 @@ function updatePositionHistogram() {
 
   //d
 
-  const simulation = {
+  let simulation = {
     x: histBins,
     y: histValues,
     type: 'line',
@@ -155,7 +155,7 @@ function updatePositionHistogram() {
     name: 'simulation',
   };
 
-  const probability = {
+  let probability = {
     x: histBins,
     y: probabilityValues,
     type: 'line',
@@ -166,7 +166,7 @@ function updatePositionHistogram() {
     name: 'theory',
   };
 
-  const frictionProfile = {
+  let frictionProfile = {
     x: histBins,
     y: frictionValues,
     type: 'line',

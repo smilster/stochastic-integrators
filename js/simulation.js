@@ -48,8 +48,8 @@ function simulate() {
       updatePositionHistogram();
       updateVelocityHistogram();
 
-      X = [];
-      V = [];
+      // X = [];
+      // V = [];
 
     }
     stepCount++;
